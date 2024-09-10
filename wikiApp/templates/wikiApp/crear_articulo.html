@@ -1,0 +1,42 @@
+{% extends "wikiApp/layout.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Formulario -->
+<div class="fondo d-flex">
+    <div class="col-md-6 w-50">
+
+        <form method="POST" action="{% url 'crear_articulo' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="nombre_tema" class="form-label">Título</label>
+                <input type="text" class="form-control" id="nombre_tema" name="nombre_tema" required>
+            </div>
+
+            
+                <label for="opciones" class="form-label">Elige un Tema:</label>
+                <select id="opciones" class="form-select" name="opciones" required>
+
+                    {% for tema in listaTemas %}
+
+                    <option value="{{tema.id}}">{{tema.nombre}}</option>
+                    {% empty %}
+                    <li>No hay temas disponibles.</li>
+
+                    {% endfor %}
+                </select>
+            
+
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Contenido del artículo</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+    <div class="panel-derecho col-md-9">
+        <!-- Esta sección estará vacía para el formulario de crear nuevo tema -->
+    </div>
+</div>
+
+{% endblock %}
